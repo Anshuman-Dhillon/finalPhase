@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bookstore.controller.CustomerScreenController">
+    <Label fx:id="welcomeLabel" text="Welcome Jane. You have 0 points. Your status is Silver"/>
+    <TableView fx:id="booksTable">
+        <columns>
+            <TableColumn text="Book Name" fx:id="bookNameColumn"/>
+            <TableColumn text="Book Price" fx:id="bookPriceColumn"/>
+            <TableColumn text="Select" fx:id="selectColumn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="select"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <Button text="Buy" onAction="#handleBuy"/>
+    <Button text="Redeem Points and Buy" onAction="#handleRedeemAndBuy"/>
+    <Button text="Logout" onAction="#handleLogout"/>
+</VBox>
