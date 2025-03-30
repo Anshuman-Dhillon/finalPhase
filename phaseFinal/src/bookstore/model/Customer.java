@@ -4,17 +4,16 @@ import bookstore.model.states.CustomerState;
 import bookstore.model.states.SilverState;
 
 public class Customer {
-
     private String username;
     private String password;
     private int points;
-    private CustomerState state;  // State pattern
+    private CustomerState state;  //State pattern
 
     public Customer(String username, String password) {
         this.username = username;
         this.password = password;
         this.points = 0;
-        this.state = new SilverState();  // Default state
+        this.state = new SilverState();
     }
 
     // Getters and Setters
@@ -32,7 +31,7 @@ public class Customer {
 
     public void setPoints(int points) {
         this.points = points;
-        state.checkStatus(this);  // Check for state transitions
+        state.checkStatus(this);
     }
 
     // State-related methods

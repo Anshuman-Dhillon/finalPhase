@@ -12,7 +12,6 @@ import bookstore.util.SceneManager;
 import javafx.scene.control.Label;
 
 public class CustomerScreenController {
-
     @FXML
     private TableView<Book> booksTable;
     @FXML
@@ -31,17 +30,16 @@ public class CustomerScreenController {
 
     @FXML
     public void initialize() {
-        // Set up the table columns
         selectColumn.setCellValueFactory(new PropertyValueFactory<>("select"));
 
         bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         bookPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        // Load owner data
+        //Load owner data
         //owner = new Owner("admin", "admin"); // Replace with actual owner instance
-        // owner.loadData();
-        // Populate the table with books
-        // booksTable.setItems(owner.getBooks());
+        //owner.loadData();
+        //Populate the table with books
+        //booksTable.setItems(owner.getBooks());
     }
 
     public void setCustomer(Customer customer) {
@@ -53,35 +51,43 @@ public class CustomerScreenController {
         welcomeLabel.setText(message);
 
         booksTable.setItems(owner.getBooks());
-
     }
 
     @FXML
     private void handleBuy() {
-        // Calculate total cost and update points
+        //calculate total cost and update points
         double totalCost = 0;
         for (Book book : booksTable.getItems()) {
             if (book.getSelect().isSelected()) {
                 totalCost += book.getPrice();
             }
         }
+        
         customer.setPoints(customer.getPoints() + (int) (totalCost * 10));
         SceneManager.switchToCostScreen(customer, totalCost, false);
     }
 
     @FXML
     private void handleRedeemAndBuy() {
-        // Calculate total cost and redeem points
+        //calculate total cost of selected books
         double totalCost = 0;
         for (Book book : booksTable.getItems()) {
             if (book.getSelect().isSelected()) {
                 totalCost += book.getPrice();
             }
         }
-        int pointsToRedeem = customer.getPoints();
-        double discount = Math.min(pointsToRedeem / 100, totalCost);
+        
+        int pointsBefore = customer.getPoints();
+        double maxDiscount = pointsBefore / 100.0;
+        double discount = Math.min(maxDiscount, totalCost);
         totalCost -= discount;
-        customer.setPoints((int) (pointsToRedeem - (discount * 100)));
+
+        int pointsSpent = (int) (discount * 100);
+        int remainingPoints = pointsBefore - pointsSpent;
+        int pointsEarned = (int) (totalCost * 10);
+        
+        customer.setPoints(remainingPoints + pointsEarned);
+
         SceneManager.switchToCostScreen(customer, totalCost, true);
     }
 

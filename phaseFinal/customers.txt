@@ -1,2 +1,1 @@
-anshuman,ad,1980
-123,123,0
+anshuman,ad,800

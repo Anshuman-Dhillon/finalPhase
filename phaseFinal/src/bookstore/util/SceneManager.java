@@ -11,21 +11,16 @@ import bookstore.controller.CostScreenController;
 import bookstore.controller.CustomerScreenController;
 
 public class SceneManager {
-
     private static Stage primaryStage;
-
     private static Owner currentOwner;
 
     public static void setOwner(Owner owner) {
         currentOwner = owner;
-        System.out.println("Owner set: " + owner); // Just used for checking
-
+        System.out.println("Owner set: " + owner); //Just used for checking
     }
 
     public static Owner getOwner() {
-
         return currentOwner;
-
     }
 
     public static void setPrimaryStage(Stage stage) {
@@ -35,9 +30,9 @@ public class SceneManager {
     public static void switchToLoginScreen() {
         try {
             Parent root = FXMLLoader.load(SceneManager.class.getResource("/bookstore/view/LoginScreen.fxml"));
-            Scene scene = new Scene(root, 300, 200); // Set preferred width and height
+            Scene scene = new Scene(root, 300, 200);
             primaryStage.setScene(scene);
-            primaryStage.show(); // Ensure the stage is displayed
+            primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,9 +41,9 @@ public class SceneManager {
     public static void switchToOwnerScreen() {
         try {
             Parent root = FXMLLoader.load(SceneManager.class.getResource("/bookstore/view/OwnerScreen.fxml"));
-            Scene scene = new Scene(root, 300, 200); // Set preferred width and height
+            Scene scene = new Scene(root, 300, 200);
             primaryStage.setScene(scene);
-            primaryStage.show(); // Ensure the stage is displayed
+            primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,8 +57,7 @@ public class SceneManager {
         try {
             FXMLLoader loader = new FXMLLoader(SceneManager.class.getResource("/bookstore/view/CustomersScreen.fxml"));
             Parent root = loader.load();
-
-            // Get the controller and pass in the current owner
+            
             bookstore.controller.CustomersScreenController controller = loader.getController();
             controller.setOwner(currentOwner);
 
@@ -93,7 +87,9 @@ public class SceneManager {
             Parent root = loader.load();
             CostScreenController controller = loader.getController();
             controller.setCustomer(customer, totalCost, redeemed);
-            primaryStage.setScene(new Scene(root));
+            
+            Scene scene = new Scene(root, 200, 200);
+            primaryStage.setScene(scene);
         } catch (Exception e) {
             e.printStackTrace();
         }

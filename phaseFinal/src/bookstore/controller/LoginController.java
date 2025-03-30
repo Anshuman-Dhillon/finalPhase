@@ -35,8 +35,7 @@ public class LoginController {
     private void handleLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
-
-        // Check if the owner is logging in
+        
         if (username.equals("admin") && password.equals("admin")) {
             SceneManager.switchToOwnerScreen();
         } else {

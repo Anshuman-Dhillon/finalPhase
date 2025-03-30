@@ -10,7 +10,6 @@ import bookstore.model.Owner;
 import bookstore.util.SceneManager;
 
 public class BooksScreenController {
-
     @FXML
     private TableView<Book> booksTable;
     @FXML
@@ -27,13 +26,12 @@ public class BooksScreenController {
 
     @FXML
     public void initialize() {
-        // Set up the table columns
         bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         bookPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        // Load owner data
-        // owner.loadData();
-        // Populate the table with books
+        //Load owner data
+        //owner.loadData();
+        //Populate the table with books
         booksTable.setItems(owner.getBooks());
     }
 
@@ -41,10 +39,17 @@ public class BooksScreenController {
     private void handleAddBook() {
         String name = nameField.getText();
         double price = Double.parseDouble(priceField.getText());
+        
+        // Check if the book already exists in the list
+        for (Book existingBook : owner.getBooks()) {
+            if (existingBook.getName().equalsIgnoreCase(name) && existingBook.getPrice() == price) {
+                return;
+            }
+        }
+        
         Book book = new Book(name, price);
         owner.addBook(book);
-        booksTable.setItems(owner.getBooks()); // Refresh the table
-
+        booksTable.setItems(owner.getBooks());
     }
 
     @FXML
@@ -52,8 +57,7 @@ public class BooksScreenController {
         Book selectedBook = booksTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             owner.removeBook(selectedBook);
-            booksTable.setItems(owner.getBooks()); // Refresh the table
-
+            booksTable.setItems(owner.getBooks());
         }
     }
 
@@ -61,5 +65,4 @@ public class BooksScreenController {
     private void handleBack() {
         SceneManager.switchToOwnerScreen();
     }
-
 }
