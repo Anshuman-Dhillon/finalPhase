@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Owner {
+
     private String username;
     private String password;
     private ObservableList<Book> books; // Use ObservableList for books
@@ -88,4 +89,5 @@ public class Owner {
         books = FXCollections.observableArrayList(FileHandler.loadBooks()); // Convert to ObservableList
         customers = FXCollections.observableArrayList(FileHandler.loadCustomers()); // Convert to ObservableList
     }
+
 }

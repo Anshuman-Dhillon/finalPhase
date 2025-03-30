@@ -1,13 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package bookstore.model.states;
 
-/**
- *
- * @author princ
- */
-public class SilverState {
-    
+import bookstore.model.Customer;
+
+public class SilverState implements CustomerState {
+
+    @Override
+    public String getStatus() {
+        return "Silver";
+    }
+
+    @Override
+    public void checkStatus(Customer customer) {
+        // Upgrade to Gold if points >= 1000
+        if (customer.getPoints() >= 1000) {
+            customer.setState(new GoldState());
+        }
+    }
 }

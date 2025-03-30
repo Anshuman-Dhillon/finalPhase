@@ -10,13 +10,20 @@ import bookstore.model.Owner;
 import bookstore.util.SceneManager;
 
 public class BooksScreenController {
-    @FXML private TableView<Book> booksTable;
-    @FXML private TableColumn<Book, String> bookNameColumn;
-    @FXML private TableColumn<Book, Double> bookPriceColumn;
-    @FXML private TextField nameField;
-    @FXML private TextField priceField;
 
-    private Owner owner;
+    @FXML
+    private TableView<Book> booksTable;
+    @FXML
+    private TableColumn<Book, String> bookNameColumn;
+    @FXML
+    private TableColumn<Book, Double> bookPriceColumn;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField priceField;
+
+    //  private Owner owner;
+    Owner owner = SceneManager.getOwner();
 
     @FXML
     public void initialize() {
@@ -25,11 +32,9 @@ public class BooksScreenController {
         bookPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         // Load owner data
-        owner = new Owner("admin", "admin"); // Replace with actual owner instance
-        owner.loadData();
-
+        // owner.loadData();
         // Populate the table with books
-        booksTable.setItems(owner.getBooks()); // Now works because getBooks() returns ObservableList
+        booksTable.setItems(owner.getBooks());
     }
 
     @FXML
@@ -38,7 +43,8 @@ public class BooksScreenController {
         double price = Double.parseDouble(priceField.getText());
         Book book = new Book(name, price);
         owner.addBook(book);
-        // No need to call setItems again because ObservableList automatically updates the table
+        booksTable.setItems(owner.getBooks()); // Refresh the table
+
     }
 
     @FXML
@@ -46,7 +52,14 @@ public class BooksScreenController {
         Book selectedBook = booksTable.getSelectionModel().getSelectedItem();
         if (selectedBook != null) {
             owner.removeBook(selectedBook);
-            // No need to call setItems again because ObservableList
+            booksTable.setItems(owner.getBooks()); // Refresh the table
+
         }
     }
+
+    @FXML
+    private void handleBack() {
+        SceneManager.switchToOwnerScreen();
+    }
+
 }

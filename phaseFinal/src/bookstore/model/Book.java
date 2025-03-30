@@ -3,6 +3,7 @@ package bookstore.model;
 import javafx.scene.control.CheckBox;
 
 public class Book {
+
     private String name;
     private double price;
     private CheckBox select; // Add CheckBox field

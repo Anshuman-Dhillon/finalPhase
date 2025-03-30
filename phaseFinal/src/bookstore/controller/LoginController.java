@@ -7,12 +7,29 @@ import bookstore.util.SceneManager;
 import bookstore.model.Owner;
 import bookstore.model.Customer;
 import bookstore.controller.CostScreenController;
-import bookstore.controller.CustomerScreenController;
-
+//import bookstore.controller.CustomerScreenController;
 
 public class LoginController {
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
+
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+
+    //System.out.println("The customers " +customer ); // Debug print
+//Owner owner = new Owner("admin", "admin");
+    Owner owner = SceneManager.getOwner();
+
+    @FXML
+    public void initialize() {
+
+        // owner.loadData(); // Load everything only once
+        //SceneManager.setOwner(owner);
+        System.out.println("Customers on login screen:");// this can be deleted I was just checking
+        for (Customer customer : owner.getCustomers()) {
+            System.out.println("- " + customer.getUsername() + " (" + customer.getPassword() + " pts)");
+        }
+    }
 
     @FXML
     private void handleLogin() {
@@ -24,13 +41,14 @@ public class LoginController {
             SceneManager.switchToOwnerScreen();
         } else {
             // Check if the customer exists
-            Owner owner = new Owner("admin", "admin"); // Replace with actual owner instance
-            owner.loadData(); // Load customer data
+            //  Owner owner = new Owner("admin", "admin"); // Replace with actual owner instance
+            //  owner.loadData(); // Load customer data
+
             Customer customer = owner.findCustomerByUsername(username);
+
             if (customer != null && customer.getPassword().equals(password)) {
                 SceneManager.switchToCustomerScreen(customer);
             } else {
-                // Show error message (e.g., invalid username/password)
                 System.out.println("Invalid username or password.");
             }
         }

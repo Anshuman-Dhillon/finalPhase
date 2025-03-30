@@ -9,12 +9,22 @@ import bookstore.model.Book;
 import bookstore.model.Customer;
 import bookstore.model.Owner;
 import bookstore.util.SceneManager;
+import javafx.scene.control.Label;
 
 public class CustomerScreenController {
-    @FXML private TableView<Book> booksTable;
-    @FXML private TableColumn<Book, String> bookNameColumn;
-    @FXML private TableColumn<Book, Double> bookPriceColumn;
-    @FXML private TableColumn<Book, CheckBox> selectColumn;
+
+    @FXML
+    private TableView<Book> booksTable;
+    @FXML
+    private TableColumn<Book, String> bookNameColumn;
+    @FXML
+    private TableColumn<Book, Double> bookPriceColumn;
+    @FXML
+    private TableColumn<Book, CheckBox> selectColumn;
+    @FXML
+    private TableColumn<Customer, Integer> pointsColumn;
+    @FXML
+    private Label welcomeLabel;
 
     private Customer customer;
     private Owner owner;
@@ -22,19 +32,28 @@ public class CustomerScreenController {
     @FXML
     public void initialize() {
         // Set up the table columns
+        selectColumn.setCellValueFactory(new PropertyValueFactory<>("select"));
+
         bookNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         bookPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         // Load owner data
-        owner = new Owner("admin", "admin"); // Replace with actual owner instance
-        owner.loadData();
-
+        //owner = new Owner("admin", "admin"); // Replace with actual owner instance
+        // owner.loadData();
         // Populate the table with books
-        booksTable.setItems(owner.getBooks());
+        // booksTable.setItems(owner.getBooks());
     }
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+        this.owner = SceneManager.getOwner();
+
+        String message = "Welcome " + customer.getUsername() + ". You have " + customer.getPoints() + " points. Your status is " + customer.getStatus();//display message
+
+        welcomeLabel.setText(message);
+
+        booksTable.setItems(owner.getBooks());
+
     }
 
     @FXML

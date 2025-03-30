@@ -8,20 +8,28 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bookstore.controller.CustomerScreenController">
-    <Label fx:id="welcomeLabel" text="Welcome Jane. You have 0 points. Your status is Silver"/>
-    <TableView fx:id="booksTable">
+<VBox spacing="10"
+      xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="bookstore.controller.CustomerScreenController"
+      alignment="CENTER">
+      
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+ <Label fx:id="welcomeLabel" />
+
+    <TableView fx:id="booksTable" prefHeight="300" prefWidth="400">
         <columns>
-            <TableColumn text="Book Name" fx:id="bookNameColumn"/>
-            <TableColumn text="Book Price" fx:id="bookPriceColumn"/>
-            <TableColumn text="Select" fx:id="selectColumn">
-                <cellValueFactory>
-                    <PropertyValueFactory property="select"/>
-                </cellValueFactory>
-            </TableColumn>
+            <TableColumn fx:id="bookNameColumn" text="Book Name" />
+            <TableColumn fx:id="bookPriceColumn" text="Book Price" />
+            <TableColumn fx:id="selectColumn" text="Select" />
         </columns>
     </TableView>
-    <Button text="Buy" onAction="#handleBuy"/>
-    <Button text="Redeem Points and Buy" onAction="#handleRedeemAndBuy"/>
-    <Button text="Logout" onAction="#handleLogout"/>
+
+    <Button text="Buy" onAction="#handleBuy" />
+    <Button text="Redeem Points and Buy" onAction="#handleRedeemAndBuy" />
+    <Button text="Logout" onAction="#handleLogout" />
+
 </VBox>

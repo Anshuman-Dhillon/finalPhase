@@ -1,15 +1,20 @@
 package bookstore.model;
 
+import bookstore.model.states.CustomerState;
+import bookstore.model.states.SilverState;
+
 public class Customer {
+
     private String username;
     private String password;
     private int points;
+    private CustomerState state;  // State pattern
 
-    // Constructor
     public Customer(String username, String password) {
         this.username = username;
         this.password = password;
-        this.points = 0; // Initialize points to 0
+        this.points = 0;
+        this.state = new SilverState();  // Default state
     }
 
     // Getters and Setters
@@ -17,16 +22,8 @@ public class Customer {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getPoints() {
@@ -35,15 +32,15 @@ public class Customer {
 
     public void setPoints(int points) {
         this.points = points;
+        state.checkStatus(this);  // Check for state transitions
     }
 
-    // Calculate customer status (Gold or Silver)
+    // State-related methods
     public String getStatus() {
-        return points >= 1000 ? "Gold" : "Silver";
+        return state.getStatus();
     }
 
-    @Override
-    public String toString() {
-        return username + "," + password + "," + points;
+    public void setState(CustomerState state) {
+        this.state = state;
     }
 }

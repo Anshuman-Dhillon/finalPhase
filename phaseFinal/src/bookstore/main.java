@@ -9,9 +9,14 @@ import bookstore.util.SceneManager;
 import bookstore.model.Owner;
 
 public class main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Set the primary stage in SceneManager
+
+        Owner owner = new Owner("admin", "admin");
+        owner.loadData();
+
+        SceneManager.setOwner(owner);
         SceneManager.setPrimaryStage(primaryStage);
 
         // Load the login screen
@@ -25,10 +30,13 @@ public class main extends Application {
 
         // Handle window close event to save data
         primaryStage.setOnCloseRequest(event -> {
+            System.out.println("Saving data before exit...");
+            SceneManager.getOwner().saveData(); // Overwrite books.txt and customers.txt
+
             // Save data to files before closing
-            Owner owner = new Owner("admin", "admin"); // Replace with actual owner instance
-            owner.loadData(); // Load existing data
-            owner.saveData(); // Save current data
+            // Owner owner = new Owner("admin", "admin"); // Replace with actual owner instance
+            //owner.loadData(); // Load existing data
+            //owner.saveData(); // Save current data
         });
     }
 

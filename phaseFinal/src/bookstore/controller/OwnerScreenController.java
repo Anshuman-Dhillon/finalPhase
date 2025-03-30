@@ -11,6 +11,8 @@ public class OwnerScreenController {
 
     @FXML
     private void handleCustomers() {
+      System.out.println("Customers button clicked ");// THis can be deleted I was just checking
+
         SceneManager.switchToCustomersScreen();
     }
 
